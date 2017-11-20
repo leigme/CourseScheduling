@@ -3,9 +3,11 @@ package me.leig.tools.beans;
 import java.util.Date;
 
 /**
+ * 课程单元
+ *
  * @author leig
  */
-public class Course {
+public class CourseBean {
 
     // 学期
     private int termId;
@@ -22,11 +24,13 @@ public class Course {
     // 科目标题
     private String courseTitle;
     // 班级信息
-    private Classinfo mClassinfo;
+    private ClassinfoBean mClassinfoBean;
     // 教室信息
-    private Classroom mClassroom;
+    private ClassroomBean mClassroomBean;
     // 教师信息
-    private Teacher mTeacher;
+    private TeacherBean mTeacherBean;
+    // 预计优先节次
+    private int[] indexIds;
 
     public int getTermId() {
         return termId;
@@ -84,27 +88,35 @@ public class Course {
         this.courseTitle = courseTitle;
     }
 
-    public Classinfo getClassinfo() {
-        return mClassinfo;
+    public ClassinfoBean getmClassinfoBean() {
+        return mClassinfoBean;
     }
 
-    public void setClassinfo(Classinfo classinfo) {
-        mClassinfo = classinfo;
+    public void setmClassinfoBean(ClassinfoBean mClassinfoBean) {
+        this.mClassinfoBean = mClassinfoBean;
     }
 
-    public Classroom getClassroom() {
-        return mClassroom;
+    public ClassroomBean getmClassroomBean() {
+        return mClassroomBean;
     }
 
-    public void setClassroom(Classroom classroom) {
-        mClassroom = classroom;
+    public void setmClassroomBean(ClassroomBean mClassroomBean) {
+        this.mClassroomBean = mClassroomBean;
     }
 
-    public Teacher getTeacher() {
-        return mTeacher;
+    public TeacherBean getmTeacherBean() {
+        return mTeacherBean;
     }
 
-    public void setTeacher(Teacher teacher) {
-        mTeacher = teacher;
+    public void setmTeacherBean(TeacherBean mTeacherBean) {
+        this.mTeacherBean = mTeacherBean;
+    }
+
+    public int[] getIndexIds() {
+        return indexIds;
+    }
+
+    public void setIndexIds(int[] indexIds) {
+        this.indexIds = indexIds;
     }
 }

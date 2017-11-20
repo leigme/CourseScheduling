@@ -3,7 +3,7 @@ package me.leig.tools.beans;
 /**
  * @author leig
  */
-public class Teacher {
+public class TeacherBean {
 
 
 

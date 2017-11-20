@@ -1,16 +1,12 @@
 package me.leig.tools;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import me.leig.tools.beans.Course;
+import me.leig.tools.beans.CourseBean;
 import me.leig.tools.comm.ConfigAnalysis;
 import me.leig.tools.comm.ConfigBean;
 import me.leig.tools.comm.Constant;
-import me.leig.tools.comm.Tools;
-import me.leig.tools.scheduling.Condition;
-import me.leig.tools.scheduling.CourseExecuter;
-import me.leig.tools.scheduling.Executer;
-import me.leig.tools.scheduling.ExecuterChain;
+import me.leig.tools.beans.ConditionBean;
+import me.leig.tools.scheduling.CourseExecutor;
+import me.leig.tools.scheduling.ExecutorChain;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -43,58 +39,58 @@ public class App {
             ConfigBean cb = configAnalysis.startAnalysis();
 
             if (cb.isDebug()) {
-                List<Condition> conditions = new ArrayList<Condition>();
-
-                Condition language = new Condition();
-
-                language.setCourseId(1011);
-                int[][] languagess = {{3, 4}, {}, {5, 6}, {}, {}};
-                language.setIndexs(languagess);
-
-                conditions.add(language);
-
-                Condition english = new Condition();
-
-                language.setCourseId(1012);
-                int[][] englishss = {{1, 2}, {}, {2}, {}, {6}};
-                english.setIndexs(englishss);
-
-                conditions.add(english);
-
-                Condition math = new Condition();
-
-                math.setCourseId(1013);
-                int[][] mathss = {{}, {1, 2}, {3}, {}, {2}};
-                math.setIndexs(mathss);
-
-                conditions.add(math);
-
-                Condition science = new Condition();
-
-                science.setCourseId(1014);
-                int[][] sciencess = {{}, {}, {}, {}, {}};
-                science.setIndexs(sciencess);
-
-                conditions.add(science);
-
-                Gson gson = new Gson();
-
-                String jsonString = gson.toJson(conditions);
-
-                Tools.serializeFile(cb.getConditionPath(), jsonString);
+//                List<ConditionBean> conditionBeans = new ArrayList<ConditionBean>();
+//
+//                ConditionBean language = new ConditionBean();
+//
+//                language.setCourseId(1011);
+//                int[][] languagess = {{3, 4}, {}, {5, 6}, {}, {}};
+//                language.setIndexs(languagess);
+//
+//                conditionBeans.add(language);
+//
+//                ConditionBean english = new ConditionBean();
+//
+//                language.setCourseId(1012);
+//                int[][] englishss = {{1, 2}, {}, {2}, {}, {6}};
+//                english.setIndexs(englishss);
+//
+//                conditionBeans.add(english);
+//
+//                ConditionBean math = new ConditionBean();
+//
+//                math.setCourseId(1013);
+//                int[][] mathss = {{}, {1, 2}, {3}, {}, {2}};
+//                math.setIndexs(mathss);
+//
+//                conditionBeans.add(math);
+//
+//                ConditionBean science = new ConditionBean();
+//
+//                science.setCourseId(1014);
+//                int[][] sciencess = {{}, {}, {}, {}, {}};
+//                science.setIndexs(sciencess);
+//
+//                conditionBeans.add(science);
+//
+//                Gson gson = new Gson();
+//
+//                String jsonString = gson.toJson(conditionBeans);
+//
+//                Tools.serializeFile(cb.getConditionPath(), jsonString);
                 return;
             }
 
-            String jsonString = Tools.fileToString(cb.getConditionPath());
-
-            Gson gson = new Gson();
-
-            List<Condition> conditions = gson.fromJson(jsonString, new
-                    TypeToken<List<Condition>>(){}.getType());
+//            String jsonString = Tools.fileToString(cb.getConditionPath());
+//
+//            Gson gson = new Gson();
+//
+//            List<ConditionBean> conditionBeans = gson.fromJson(jsonString, new
+//                    TypeToken<List<ConditionBean>>(){}.getType());
 
 /*            int count = 0;
 
-            for (Condition condition: conditions) {
+            for (ConditionBean condition: conditionBeans) {
                 int[][] intss = condition.getIndexs();
                 for (int[] ints: intss) {
                     for (int i: ints) {
@@ -109,31 +105,36 @@ public class App {
                 return;
             }*/
 
-            List<Course> courses = new ArrayList<Course>();
+            List<ConditionBean> conditionBeans = new ArrayList<>();
 
-            // 创建一周的课程
+            List<CourseBean> courses = new ArrayList<>();
+
+            // 创建一周的课程格子
             for (int i = 1; i <= indexs; i++) {
                 for (int j = 1; j <= days; j++) {
-                    Course course = new Course();
-                    course.setIndexId(i);
-                    course.setDayId(j);
-                    courses.add(course);
+                    CourseBean courseBean = new CourseBean();
+                    courseBean.setIndexId(i);
+                    courseBean.setDayId(j);
+                    courses.add(courseBean);
                 }
             }
 
-            CourseExecuter ce = new CourseExecuter(conditions);
+            // 排课班级数
+            // 排课课程数
 
-            ExecuterChain eChain = new ExecuterChain();
+            CourseExecutor ce = new CourseExecutor(conditionBeans);
+
+            ExecutorChain eChain = new ExecutorChain();
 
             eChain.addExecuter(ce);
 
             // 开始排课
             eChain.doChainExecuter(courses);
 
-            for (Course course: courses) {
-                log.info(course.getCourseId());
-                log.info(course.getDayId());
-                log.info(course.getIndexId());
+            for (CourseBean courseBean : courses) {
+                log.info(courseBean.getCourseId());
+                log.info(courseBean.getDayId());
+                log.info(courseBean.getIndexId());
             }
 
         } catch (IOException e) {

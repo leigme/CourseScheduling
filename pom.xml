@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.leig.tools</groupId>
-  <artifactId>course-scheduling</artifactId>
+  <artifactId>courseBean-scheduling</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>course-scheduling</name>
+  <name>courseBean-scheduling</name>
   <url>http://maven.apache.org</url>
 
   <properties>
