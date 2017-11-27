@@ -9,7 +9,14 @@ import java.util.List;
  */
 public class TeacherExecutor implements Executor {
 
+    @Override
     public List<CourseBean> doExecute(List<CourseBean> cours) {
-        return cours;
+        return null;
     }
+
+    @Override
+    public boolean canArrange(CourseBean courseBean, List<CourseExecutor> executors) {
+        return false;
+    }
+
 }

@@ -9,4 +9,5 @@ public interface Executor {
 
     List<CourseBean> doExecute(List<CourseBean> cours);
 
+    boolean canArrange(CourseBean courseBean, List<CourseExecutor> executors);
 }

@@ -26,6 +26,7 @@ public class CourseExecutor implements Executor {
      * @param cours
      * @return
      */
+    @Override
     public List<CourseBean> doExecute(List<CourseBean> cours) {
 
         // 按初始条件优先设置课程
@@ -76,6 +77,11 @@ public class CourseExecutor implements Executor {
         }
 
         return cours;
+    }
+
+    @Override
+    public boolean canArrange(CourseBean courseBean, List<CourseExecutor> executors) {
+        return false;
     }
 
 }
